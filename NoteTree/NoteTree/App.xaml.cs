@@ -1,24 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace NoteTree
 {
-	public partial class App : Application
+
+    public partial class App : Application
 	{
+        static Database _database;
 		public App ()
 		{
 			InitializeComponent();
 
 			MainPage = new NoteTree.MainPage();
 		}
+        public static Database Database
+        {
+          get
+          {
+            if (_database == null)
+            {
+              _database = new Database(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+            }
+            return _database;
+          }
+        }
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+            // Handle when your app starts
 		}
 
 		protected override void OnSleep ()

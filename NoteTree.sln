@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTree.iOS", "NoteTree\No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTree.UWP", "NoteTree\NoteTree.UWP\NoteTree.UWP.csproj", "{C8A3149D-77FF-452C-AF68-AA38A7FCB3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTree", "NoteTree\NoteTree\NoteTree.csproj", "{7C641B62-4B82-4E27-960E-1BDEC22F2FEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteTree", "NoteTree\NoteTree\NoteTree.csproj", "{7C641B62-4B82-4E27-960E-1BDEC22F2FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

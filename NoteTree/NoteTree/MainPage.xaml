@@ -4,8 +4,18 @@
              xmlns:local="clr-namespace:NoteTree"
              x:Class="NoteTree.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout>
+        <Label Text="Welcome to Xamarin.Forms!"/>
+        <Button Text="AddEntry" 
+                Clicked="OnAddEntry" />
+        <TableView>
+            <TableRoot>
+                <TableSection x:Name="moje">
+                    <TextCell Text="heje"/>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </StackLayout>
+
 
 </ContentPage>
