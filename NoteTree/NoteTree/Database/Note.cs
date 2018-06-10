@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace NoteTree
 {
@@ -7,7 +8,7 @@ namespace NoteTree
         public Note ()
         {
             ID = 0;
-            Content = "test";
+            Content = "test " + DateTime.Now;
             //Parent = null;
         }
         [PrimaryKey, AutoIncrement]

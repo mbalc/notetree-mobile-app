@@ -6,12 +6,24 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <TableView>
-                <TableRoot>
-                    <TableSection x:Name="moje">
-                    </TableSection>
-                </TableRoot>
-            </TableView>
+            <ListView x:Name="NoteListing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,0,0,0">
+                                <Label
+                                    Text="{Binding Content}"
+                                    HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="End"
+                                    FontSize="Large"
+                                    LineBreakMode="TailTruncation"
+                                />
+                                <Button Text="Details" HorizontalOptions="End"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 

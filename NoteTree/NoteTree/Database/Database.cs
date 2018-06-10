@@ -16,7 +16,7 @@ namespace NoteTree
 
         public Task<List<Note>> GetItemsAsync()
         {
-          return _connection.Table<Note>().ToListAsync();
+          return _connection.Table<Note>().OrderByDescending(x => x.ID).ToListAsync();
         }
 
         public Task<List<Note>> GetItemsNotDoneAsync()
