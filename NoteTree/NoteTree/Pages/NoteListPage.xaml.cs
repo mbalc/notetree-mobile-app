@@ -5,20 +5,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace NoteTree
 {
-	public partial class MainPage : ContentPage
+	public partial class NoteListPage : ContentPage
 	{
+        public ICommand IAddEntry { set; get; }
         private TableSection entries;
 
-		public MainPage()
+		public NoteListPage()
 		{
 			InitializeComponent();
 
-            entries = this.FindByName<TableSection>("moje");
+            entries = this.moje; //.FindByName<TableSection>("moje");
             InitEntryData();
+            IAddEntry = new Command(() => System.Diagnostics.Debug.Print("a dupa!"));
 		}
 
 
