@@ -10,10 +10,10 @@ using Xamarin.Forms;
 
 namespace NoteTree
 {
-	public partial class NoteListPage : ContentPage
+	public partial class ListPage : ContentPage
 	{
         private ObservableCollection<Note> items;
-		public NoteListPage()
+		public ListPage()
 		{
 			InitializeComponent();
 

@@ -10,7 +10,7 @@ namespace NoteTree
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new NoteListPage());
+			MainPage = new NavigationPage(new ListPage());
 		}
         public static Database Database
         {
