@@ -20,13 +20,11 @@ namespace NoteTree.Pages
 
             if (note == null) // creating a new note
             {
-                oldNote = null;
                 NewEntry = new Note();
                 Title = "New Note";
             }
             else // editing a note
             {
-                oldNote = note;
                 NewEntry = (Note)note.Clone();
                 Title = "Edit Note";
             }
