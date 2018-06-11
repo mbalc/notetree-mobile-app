@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +8,10 @@ namespace NoteTree.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPage : ContentPage
     {
-        public Note Note { get; set; }
+        private Note _note;
+        public Note Note { get => _note; set { _note = value; base.OnPropertyChanged("Note"); } }
+
+        public bool IsRefreshing { get; set; } // may become useful in future when syncing to external service
 
 		public DetailPage (Note note)
 		{
@@ -21,11 +20,23 @@ namespace NoteTree.Pages
 
             BindingContext = this;
 		}
+        async public void RefreshEntry()
+        {
+            IsRefreshing = true;
+            Note = await App.Database.GetItemAsync(Note.ID);
+            IsRefreshing = false;
+        }
         public void OnEdit()
         {
             System.Diagnostics.Debug.Print("editin {0}", Note.Content);
             Navigation.PushAsync(new EditPage(Note));
             // TODO new page
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            RefreshEntry();
         }
         async public void OnDelete()
         {
