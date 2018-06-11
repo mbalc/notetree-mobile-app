@@ -27,14 +27,11 @@ namespace NoteTree
             NoteListing.ItemsSource = items;
         }
 
-        public EventHandler getOnEntryDelete(Note entry, ViewCell cell)
+        public void OnDetails(object sender, EventArgs e)
         {
-            return (object sender, EventArgs args) =>
-            {
-                Debug.WriteLine(entry);
-                App.Database.DeleteItemAsync(entry);
-                items.Remove(entry);
-            };
+            Note note = (Note)((Button)sender).BindingContext;
+            Navigation.PushAsync(new NoteTree.Pages.DetailPage(note));
+
         }
 
         public void OnAddEntry(object sender, EventArgs e)

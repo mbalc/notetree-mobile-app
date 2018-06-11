@@ -18,7 +18,7 @@
                                     FontSize="Large"
                                     LineBreakMode="TailTruncation"
                                 />
-                                <Button Text="Details" HorizontalOptions="End"/>
+                                <Button Text="Details" HorizontalOptions="End" Clicked="OnDetails" CommandParameter="{Binding .}"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
