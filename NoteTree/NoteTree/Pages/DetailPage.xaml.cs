@@ -26,14 +26,20 @@ namespace NoteTree.Pages
             DisplayAlert ("Edit", "Note editing is not supported yet", "OK");
             // TODO new page
         }
-        public void OnDelete()
+        async public void OnDelete()
         {
-            System.Diagnostics.Debug.Print("deletin");
-            DisplayAlert ("Delete", "Note deletion is not supported yet", "OK");
-            // TODO prompt
-            // TODO remove db entry
-            // TODO redirect to ListPage
-            // TODO reassure ListPages are up-to-date
+            Boolean result = await DisplayAlert ("Delete",
+                "Are you sure you want to delete this note?",
+                "Yes", "No"
+            ); // TODO support for children - add notice what will happen
+
+            if (result)
+            {
+                await App.Database.DeleteItemAsync(data);
+                await Navigation.PopAsync();
+            }
+
+            // TODO? move to edit page
         }
 	}
 }

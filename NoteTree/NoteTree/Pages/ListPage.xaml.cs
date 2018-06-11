@@ -17,10 +17,10 @@ namespace NoteTree
 		{
 			InitializeComponent();
 
-            InitEntryData();
+            FullUpdateEntryData();
 		}
 
-        async void InitEntryData()
+        async void FullUpdateEntryData()
         {
             List <Note> notes = await App.Database.GetItemsAsync();
             items = new ObservableCollection<Note>(notes);
@@ -31,7 +31,13 @@ namespace NoteTree
         {
             Note note = (Note)((Button)sender).BindingContext;
             Navigation.PushAsync(new NoteTree.Pages.DetailPage(note));
+        }
 
+        override protected void OnAppearing()
+        {
+            base.OnAppearing();
+            System.Diagnostics.Debug.Print("reappearing");
+            FullUpdateEntryData();  // TODO improve performance - do this only when there were changes made to DB
         }
 
         public void OnAddEntry(object sender, EventArgs e)
