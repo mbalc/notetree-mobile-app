@@ -5,7 +5,7 @@
              Title="Note Details">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Content}"
+            <Label Text="{Binding Note.Content}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="StartAndExpand"
                 FontSize="Large"

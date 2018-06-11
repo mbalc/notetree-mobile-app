@@ -9,16 +9,17 @@ using Xamarin.Forms.Xaml;
 
 namespace NoteTree.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DetailPage : ContentPage
-	{
-        private Note data;
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class DetailPage : ContentPage
+    {
+        public Note Note { get; set; }
+
 		public DetailPage (Note note)
 		{
 			InitializeComponent ();
-            data = note;
+            Note = note;
 
-            BindingContext = data;
+            BindingContext = this;
 		}
         public void OnEdit()
         {
@@ -35,7 +36,7 @@ namespace NoteTree.Pages
 
             if (result)
             {
-                await App.Database.DeleteItemAsync(data);
+                await App.Database.DeleteItemAsync(Note);
                 await Navigation.PopAsync();
             }
 
