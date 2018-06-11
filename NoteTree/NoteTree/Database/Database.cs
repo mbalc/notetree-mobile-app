@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,11 +27,13 @@ namespace NoteTree
 
         public Task<int> SaveItemAsync(Note item)
         {
+          item.Updated = DateTime.Now;
           if (item.ID != 0)
           {
             return _connection.UpdateAsync(item);
           }
           else {
+            item.Created = DateTime.Now;
             return _connection.InsertAsync(item);
           }
         }

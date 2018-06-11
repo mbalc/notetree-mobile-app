@@ -30,7 +30,6 @@ namespace NoteTree.Pages
         {
             System.Diagnostics.Debug.Print("editin {0}", Note.Content);
             Navigation.PushAsync(new EditPage(Note));
-            // TODO new page
         }
         protected override void OnAppearing()
         {

@@ -5,6 +5,16 @@
              Title="Note Details">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding Note.Created, StringFormat='Created at: {0}'}"
+                VerticalOptions="Start" 
+                HorizontalOptions="End"
+                FontSize="Micro"
+            />
+            <Label Text="{Binding Note.Updated, StringFormat='Updated at: {0}'}"
+                VerticalOptions="Start" 
+                HorizontalOptions="End"
+                FontSize="Micro"
+            />
             <Label Text="{Binding Note.Content}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="StartAndExpand"
