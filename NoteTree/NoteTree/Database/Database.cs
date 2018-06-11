@@ -19,11 +19,6 @@ namespace NoteTree
           return _connection.Table<Note>().OrderByDescending(x => x.ID).ToListAsync();
         }
 
-        public Task<List<Note>> GetItemsNotDoneAsync()
-        {
-          return _connection.QueryAsync<Note>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
-        }
-
         public Task<Note> GetItemAsync(int id)
         {
           return _connection.Table<Note>().Where(i => i.ID == id).FirstOrDefaultAsync();

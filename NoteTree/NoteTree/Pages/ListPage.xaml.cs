@@ -42,11 +42,9 @@ namespace NoteTree
 
         public void OnAddEntry(object sender, EventArgs e)
         {
-            Note newEntry = new Note();
-            App.Database.SaveItemAsync(newEntry);
-            //await Navigation.PushAsync (new Page1 ());
+            Navigation.PushAsync(new Pages.EditPage());
 
-            items.Insert(0, newEntry);
+            //items.Insert(0, newEntry);
         }
 	}
 }

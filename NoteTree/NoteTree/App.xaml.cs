@@ -10,7 +10,7 @@ namespace NoteTree
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new ListPage());
+			MainPage = new NavigationPage(new ListPage()); // TODO MasterDetailPage with link to settings, about, help and exit
 		}
         public static Database Database
         {

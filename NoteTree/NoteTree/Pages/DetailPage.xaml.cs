@@ -22,8 +22,8 @@ namespace NoteTree.Pages
 		}
         public void OnEdit()
         {
-            System.Diagnostics.Debug.Print("editin");
-            DisplayAlert ("Edit", "Note editing is not supported yet", "OK");
+            System.Diagnostics.Debug.Print("editin {0}", Note.Content);
+            Navigation.PushAsync(new EditPage(Note));
             // TODO new page
         }
         async public void OnDelete()
