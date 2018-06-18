@@ -19,8 +19,10 @@ namespace NoteTree
 			InitializeComponent();
             NoteListing.RefreshCommand = OnRefresh;
 
+            NoteOverview.OnNoteSelection = OnDetails;
             FullUpdateEntryData();
 		}
+
 
         async void FullUpdateEntryData()
         {
@@ -36,7 +38,7 @@ namespace NoteTree
         public void OnDetails(object sender, EventArgs e)
         {
             Note note = (Note)((Button)sender).BindingContext;
-            Navigation.PushAsync(new NoteTree.Pages.DetailPage(note));
+            Navigation.PushAsync(new Pages.DetailPage(note));
         }
         public ICommand OnRefresh
         {

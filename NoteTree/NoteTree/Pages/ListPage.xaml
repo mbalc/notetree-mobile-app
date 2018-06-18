@@ -4,29 +4,17 @@
              xmlns:local="clr-namespace:NoteTree"
              x:Class="NoteTree.ListPage"
              Title="Main Notes">
+    <ContentPage.Resources>
+        <local:NoteOverview x:Name="NoteOverview" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout>
             <ListView
+                ItemTemplate="{StaticResource NoteOverviewTemplate}"
                 x:Name="NoteListing"
                 IsPullToRefreshEnabled="True"
             >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,0,0,0">
-                                <Label
-                                    Text="{Binding Content}"
-                                    HorizontalOptions="StartAndExpand"
-                                    VerticalOptions="End"
-                                    FontSize="Large"
-                                    LineBreakMode="TailTruncation"
-                                />
-                                <Button Text="Details" HorizontalOptions="End" Clicked="OnDetails" CommandParameter="{Binding .}"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
