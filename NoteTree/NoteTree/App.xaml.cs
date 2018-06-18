@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using NoteTree.Pages;
+using System;
+using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace NoteTree
 {
@@ -10,7 +13,7 @@ namespace NoteTree
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new ListPage()); // TODO MasterDetailPage with link to settings, about, help and exit
+			MainPage = new NavigationPage(new ViewNotes()); // TODO MasterDetailPage with link to settings, about, help and exit
 		}
         public static Database Database
         {

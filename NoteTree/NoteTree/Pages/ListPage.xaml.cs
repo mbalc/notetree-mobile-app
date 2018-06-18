@@ -1,10 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,31 +10,30 @@ namespace NoteTree
     // TODO add multiselect for deletion
 	public partial class ListPage : ContentPage
 	{
+        public EventHandler OnAction;
+        public string ActionName;
         private ObservableCollection<Note> items;
-		public ListPage()
+        Note NoteRoot;
+		public ListPage(Note root)
 		{
 			InitializeComponent();
             NoteListing.RefreshCommand = OnRefresh;
 
-            NoteOverview.OnNoteSelection = OnDetails;
+            NoteRoot = root;
             FullUpdateEntryData();
 		}
+		public ListPage() : this(null) { }
         async void FullUpdateEntryData()
         {
             NoteListing.IsRefreshing = true;
 
-            List <Note> notes = await App.Database.GetItemsAsync();
+            var notes = ( await App.Database.GetItemsAsync() ).Where(note => note.Parent == NoteRoot);
             items = new ObservableCollection<Note>(notes);
             NoteListing.ItemsSource = items;
 
             NoteListing.IsRefreshing = false;
         }
 
-        public void OnDetails(object sender, EventArgs e)
-        {
-            Note note = (Note)((Button)sender).BindingContext;
-            Navigation.PushAsync(new DetailPage(note));
-        }
         public ICommand OnRefresh
         {
             get {
@@ -51,14 +47,9 @@ namespace NoteTree
         {
             base.OnAppearing();
 
-            NoteOverview.SetText("View");
+            NoteOverview.SetText(ActionName);
+            NoteOverview.OnNoteSelection = OnAction;
             FullUpdateEntryData();  // TODO improve performance - do this only when there were changes made to DB
-        }
-        public void OnAddEntry(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new DetailPage());
-
-            //items.Insert(0, newEntry);
         }
 	}
 }

@@ -10,6 +10,7 @@ namespace NoteTree
         enum Mode { New, Edit };
         Mode mode;
         private Note _note;
+        protected Editor Editor { get; }
         public Note Note { get => _note; set { _note = value; base.OnPropertyChanged("Note"); } }
         public ViewCell ParentContent;
 
@@ -17,23 +18,10 @@ namespace NoteTree
         public DetailPage(Note note)
         {
             InitializeComponent();
-
-            if (note == null) // creating a new note
-            {
-                Note = new Note();
-                System.Diagnostics.Debug.Print("tutaj test" + Mode.New);
-                System.Diagnostics.Debug.Print("tutaj test" + Note.ID);
-                mode = Mode.New;
-            }
-            else // editing a note
-            {
-                Note = (Note)note.Clone();
-                mode = Mode.Edit;
-            }
-            Title = mode + " Note";
-            InitParentOverview();
-
+            Note = note;
             BindingContext = this;
+            InitParentOverview();
+            Editor = ContentEditor;  // expose its method to inheriting classes
 		}
         private void InitParentOverview()
         {
@@ -45,13 +33,11 @@ namespace NoteTree
             ParentOverview.Content = ParentContent.View;
         }
         public DetailPage() : this(null) {}
-        async public void RefreshEntry()
+        virtual async public void RefreshEntry()
         {
-            if (mode == Mode.Edit) {
-                IsRefreshing = true;
-                Note = await App.Database.GetItemAsync(Note.ID);
-                IsRefreshing = false;
-            }
+            IsRefreshing = true;
+            Note = await App.Database.GetItemAsync(Note.ID);
+            IsRefreshing = false;
         }
         protected override void OnDisappearing()
         {
@@ -66,7 +52,6 @@ namespace NoteTree
         {
             base.OnAppearing();
 
-            if (mode == Mode.New) ContentEditor.Focus();
             RefreshEntry();
         }
         async public void OnDelete()
