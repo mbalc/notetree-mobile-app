@@ -8,7 +8,7 @@ using Xamarin.Forms;
 namespace NoteTree
 {
     // TODO add multiselect for deletion
-	public partial class ListPage : ContentPage
+	public abstract partial class ListPage : ContentPage
 	{
         public EventHandler OnAction;
         public string ActionName;
@@ -20,6 +20,14 @@ namespace NoteTree
             NoteListing.RefreshCommand = OnRefresh;
             RootID = root;
             FullUpdateEntryData();
+            NoteListing.ItemSelected += (sender, e) => {
+                ((ListView)sender).SelectedItem = null;
+            };
+            NoteListing.ItemTapped += (sender, e) => {
+                Note note = e.Item as Note;
+                ViewChildren(note);
+            };
+
 		}
 		public ListPage() : this(0) { }
         async void FullUpdateEntryData()
@@ -29,10 +37,9 @@ namespace NoteTree
             var notes = ( await App.Database.GetItemsAsync() ).Where(note => note.ParentID == RootID);
             items = new ObservableCollection<Note>(notes);
             NoteListing.ItemsSource = items;
-
             NoteListing.IsRefreshing = false;
         }
-
+        protected abstract void ViewChildren(Note note);
         public ICommand OnRefresh
         {
             get {

@@ -9,8 +9,12 @@ namespace NoteTree.Pages
         {
             Title = "Choose Parent Note";
             OnAction = MakeChoice;
-            ToolbarItems.Add(new Components.AddNote());
+            ToolbarItems.Add(new Components.AddNote(ParentID));
             ActionName = "Choose";
+        }
+        override protected void ViewChildren (Note note)
+        {
+            App.Current.MainPage.Navigation.PushAsync(new Pages.ChooseParent(note.ID));
         }
         private EventHandler MakeChoice = async (sender, e) =>
         {
