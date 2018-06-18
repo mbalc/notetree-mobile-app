@@ -55,7 +55,7 @@ namespace NoteTree
         }
         public void OnAddEntry(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new Pages.EditPage());
+            Navigation.PushAsync(new Pages.DetailPage());
 
             //items.Insert(0, newEntry);
         }
