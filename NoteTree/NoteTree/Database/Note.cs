@@ -11,9 +11,6 @@ namespace NoteTree
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
 
-        //TODO many-to-one
-        //public Entry Parent { get; set; }
-
         public Note (int ID, string Content)
         {
             this.ID = ID;
@@ -25,5 +22,7 @@ namespace NoteTree
         {
             return MemberwiseClone();
         }
+
+        public Note Parent = null;
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace NoteTree.Pages
+namespace NoteTree
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPage : ContentPage
@@ -12,11 +11,12 @@ namespace NoteTree.Pages
         Mode mode;
         private Note _note;
         public Note Note { get => _note; set { _note = value; base.OnPropertyChanged("Note"); } }
+        public ViewCell ParentContent;
 
         public bool IsRefreshing { get; set; } // may become useful in future when syncing to external service
-		public DetailPage (Note note)
-		{
-			InitializeComponent ();
+        public DetailPage(Note note)
+        {
+            InitializeComponent();
 
             if (note == null) // creating a new note
             {
@@ -31,9 +31,19 @@ namespace NoteTree.Pages
                 mode = Mode.Edit;
             }
             Title = mode + " Note";
+            InitParentOverview();
 
             BindingContext = this;
 		}
+        private void InitParentOverview()
+        {
+            NoteOverview resource = new NoteOverview();
+            resource.SetText("Set Parent");
+            DataTemplate NoteOverviewTemplate = resource["NoteOverviewTemplate"] as DataTemplate;
+            ParentContent = NoteOverviewTemplate.CreateContent() as ViewCell;
+            ParentOverview.BindingContext = Note.Parent != null ? Note.Parent : new Note { Content = "Parent not set" };
+            ParentOverview.Content = ParentContent.View;
+        }
         public DetailPage() : this(null) {}
         async public void RefreshEntry()
         {

@@ -9,18 +9,27 @@ using Xamarin.Forms.Xaml;
 
 namespace NoteTree
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NoteOverview : ResourceDictionary
-	{
-        public EventHandler OnNoteSelection { get; set; }
-        public void OnButton (object sender, EventArgs e)
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NoteOverview : ResourceDictionary
+    {
+        public EventHandler OnNoteSelection { get; set; } = delegate (object sender, EventArgs e) { };
+        public string ActionTitle = "View";
+        public void OnButtonClick (object sender, EventArgs e)
         {
             OnNoteSelection(sender, e);
         }
 
-		public NoteOverview ()
-		{
-			InitializeComponent ();
+        public NoteOverview() : this(null) {}
+        public NoteOverview(string ActionTitle)
+        {
+            InitializeComponent();
+            if (ActionTitle != null) SetText(ActionTitle);
 		}
+
+        public void SetText(string text)
+        {
+            DataTemplate template = this["NoteOverviewTemplate"] as DataTemplate;
+            this["ActionTitle"] = text;
+        }
 	}
 }

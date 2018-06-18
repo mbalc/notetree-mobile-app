@@ -1,26 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NoteTree.Pages.DetailPage"
+             xmlns:local="clr-namespace:NoteTree"
+             x:Class="NoteTree.DetailPage"
              Title="Note Details">
+    <ContentPage.Resources>
+        <local:NoteOverview x:Name="NoteOverview" />
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Note.Created, StringFormat='C: {0}'}"
-                VerticalOptions="Start" 
-                HorizontalOptions="End"
-                FontSize="Micro"
-            />
-            <Label Text="{Binding Note.Updated, StringFormat='U: {0}'}"
-                VerticalOptions="Start" 
-                HorizontalOptions="End"
-                FontSize="Micro"
-            />
-            <Editor Text="{Binding Note.Content}"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Editor Grid.Row="0"
+                Text="{Binding Note.Content}"
                 x:Name="ContentEditor"
                 VerticalOptions="FillAndExpand" 
-                HorizontalOptions="FillAndExpand" 
-                FontSize="Medium"/>
-        </StackLayout>
+                FontSize="Medium" />
+            <Frame Grid.Row="1" Padding="8">
+                <StackLayout>
+                    <Label Text="{Binding Note.Created, StringFormat='C: {0}'}"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="End"
+                        FontSize="Micro"
+                    />
+                    <Label Text="{Binding Note.Updated, StringFormat='U: {0}'}"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="End"
+                        FontSize="Micro" />
+                    <ContentView x:Name="ParentOverview"/> 
+                </StackLayout>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>

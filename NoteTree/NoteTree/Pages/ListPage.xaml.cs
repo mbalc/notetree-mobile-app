@@ -22,8 +22,6 @@ namespace NoteTree
             NoteOverview.OnNoteSelection = OnDetails;
             FullUpdateEntryData();
 		}
-
-
         async void FullUpdateEntryData()
         {
             NoteListing.IsRefreshing = true;
@@ -38,7 +36,7 @@ namespace NoteTree
         public void OnDetails(object sender, EventArgs e)
         {
             Note note = (Note)((Button)sender).BindingContext;
-            Navigation.PushAsync(new Pages.DetailPage(note));
+            Navigation.PushAsync(new DetailPage(note));
         }
         public ICommand OnRefresh
         {
@@ -53,11 +51,12 @@ namespace NoteTree
         {
             base.OnAppearing();
 
+            NoteOverview.SetText("View");
             FullUpdateEntryData();  // TODO improve performance - do this only when there were changes made to DB
         }
         public void OnAddEntry(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new Pages.DetailPage());
+            Navigation.PushAsync(new DetailPage());
 
             //items.Insert(0, newEntry);
         }

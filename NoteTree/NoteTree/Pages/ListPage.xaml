@@ -13,9 +13,7 @@
             <ListView
                 ItemTemplate="{StaticResource NoteOverviewTemplate}"
                 x:Name="NoteListing"
-                IsPullToRefreshEnabled="True"
-            >
-            </ListView>
+                IsPullToRefreshEnabled="True" />
         </StackLayout>
     </ContentPage.Content>
 

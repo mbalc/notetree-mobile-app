@@ -3,18 +3,25 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="NoteTree.NoteOverview"
                     xmlns:local="clr-namespace:NoteTree">
+
+    <x:String x:Key="ActionTitle">View</x:String>
+
     <DataTemplate x:Key="NoteOverviewTemplate">
         <ViewCell>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,0,0,0">
                 <Label
                     Text="{Binding Content}"
                     HorizontalOptions="StartAndExpand"
-                    VerticalOptions="End"
-                    FontSize="Large"
-                    LineBreakMode="TailTruncation"
-                />
-                <Button Text="Details" HorizontalOptions="End" Clicked="OnButton" CommandParameter="{Binding .}"/>
+                    VerticalOptions="Center"
+                    FontSize="Medium"
+                    LineBreakMode="TailTruncation" />
+                <Button
+                    Text="{StaticResource ActionTitle}"
+                    HorizontalOptions="End"
+                    Clicked="OnButtonClick"
+                    CommandParameter="{Binding .}" />
             </StackLayout>
         </ViewCell>
     </DataTemplate>
+
 </ResourceDictionary>
