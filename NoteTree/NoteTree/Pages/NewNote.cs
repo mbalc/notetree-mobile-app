@@ -6,8 +6,9 @@ namespace NoteTree.Pages
 {
     class NewNote : DetailPage
     {
-        public NewNote() : base(new Note()) { }
-        override public void RefreshEntry() { }
+        public NewNote() : base(new Note()) {
+            App.Database.SaveItemAsync(Note);
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();

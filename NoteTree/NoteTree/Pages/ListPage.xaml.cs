@@ -13,21 +13,20 @@ namespace NoteTree
         public EventHandler OnAction;
         public string ActionName;
         private ObservableCollection<Note> items;
-        Note NoteRoot;
-		public ListPage(Note root)
+        int RootID;
+		public ListPage(int root)
 		{
 			InitializeComponent();
             NoteListing.RefreshCommand = OnRefresh;
-
-            NoteRoot = root;
+            RootID = root;
             FullUpdateEntryData();
 		}
-		public ListPage() : this(null) { }
+		public ListPage() : this(0) { }
         async void FullUpdateEntryData()
         {
             NoteListing.IsRefreshing = true;
 
-            var notes = ( await App.Database.GetItemsAsync() ).Where(note => note.Parent == NoteRoot);
+            var notes = ( await App.Database.GetItemsAsync() ).Where(note => note.ParentID == RootID);
             items = new ObservableCollection<Note>(notes);
             NoteListing.ItemsSource = items;
 
@@ -48,7 +47,7 @@ namespace NoteTree
             base.OnAppearing();
 
             NoteOverview.SetText(ActionName);
-            NoteOverview.OnNoteSelection = OnAction;
+            NoteOverview.Action = OnAction;
             FullUpdateEntryData();  // TODO improve performance - do this only when there were changes made to DB
         }
 	}

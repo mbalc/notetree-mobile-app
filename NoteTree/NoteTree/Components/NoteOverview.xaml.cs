@@ -12,11 +12,11 @@ namespace NoteTree
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteOverview : ResourceDictionary
     {
-        public EventHandler OnNoteSelection { get; set; } = (sender, e) => { };
+        public EventHandler Action { get; set; }
         public string ActionTitle = "View";
         public void OnButtonClick (object sender, EventArgs e)
         {
-            OnNoteSelection(sender, e);
+            Action(sender, e);
         }
 
         public NoteOverview() : this(null) {}

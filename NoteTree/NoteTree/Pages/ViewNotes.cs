@@ -5,12 +5,12 @@ namespace NoteTree.Pages
 {
     class ViewNotes : ListPage
     {
-        public ViewNotes(Note Parent) : base(Parent)
+        public ViewNotes(Note Parent) : base(Parent == null ? 0 : Parent.ID)
         {
             Title = Parent == null ? "Main Notes" : "Children of " + Parent.Content;
             OnAction = getShowDetails(Parent);
             ToolbarItems.Add(new Components.AddNote());
-            ActionName ="View";
+            ActionName = "View";
         }
         public ViewNotes() : this(null) {}
         private EventHandler getShowDetails(Note Parent)
@@ -18,7 +18,7 @@ namespace NoteTree.Pages
             return (sender, e) =>
             {
                 Note note = (Note)((Button)sender).BindingContext;
-                App.Current.MainPage.Navigation.PushAsync(new Pages.EditNote(note) { Title = "Note Details" });
+                App.Current.MainPage.Navigation.PushAsync(new Pages.EditNote(note) { Note=note, Title = "Note Details" });
             };
         }
     }

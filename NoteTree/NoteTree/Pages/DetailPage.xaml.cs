@@ -20,23 +20,29 @@ namespace NoteTree
             InitializeComponent();
             Note = note;
             BindingContext = this;
-            InitParentOverview();
+            InitParentOverviewAsync();
             Editor = ContentEditor;  // expose its method to inheriting classes
-		}
-        private void InitParentOverview()
+        }
+        private EventHandler ShowParentChoice = async (sender, e) =>
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new Pages.ChooseParent());
+            System.Diagnostics.Debug.Print("wrzucańskoo");
+        };
+        private async void InitParentOverviewAsync()
         {
             NoteOverview resource = new NoteOverview();
+            resource.Action = ShowParentChoice;
             resource.SetText("Set Parent");
             DataTemplate NoteOverviewTemplate = resource["NoteOverviewTemplate"] as DataTemplate;
             ParentContent = NoteOverviewTemplate.CreateContent() as ViewCell;
-            ParentOverview.BindingContext = Note.Parent != null ? Note.Parent : new Note { Content = "Parent not set" };
+            ParentOverview.BindingContext = Note.ParentID != 0 ? await App.Database.GetItemAsync(Note.ParentID) : new Note { Content = "Parent not set" };
             ParentOverview.Content = ParentContent.View;
         }
         public DetailPage() : this(null) {}
-        virtual async public void RefreshEntry()
+        virtual public void RefreshEntry()
         {
             IsRefreshing = true;
-            Note = await App.Database.GetItemAsync(Note.ID);
+            InitParentOverviewAsync();
             IsRefreshing = false;
         }
         protected override void OnDisappearing()
@@ -46,7 +52,6 @@ namespace NoteTree
             if (Note != null) { // if Note was not deleted
                 App.Database.SaveItemAsync(Note);
             }
-            Navigation.PopAsync();
         }
         protected override void OnAppearing()
         {
